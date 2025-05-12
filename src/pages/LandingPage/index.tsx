@@ -1,8 +1,33 @@
+import Header from "./Header"
+import Main from "./Main"
+import { useState, useEffect } from "react"
+
+
+
 export default function LandingPage(){
+    const [allCountriesData, setAllCountriesData] = useState<AllCountriesState>([])
+    const [toggleFilters, setToggleFilters] = useState(false)
+    const [filterArray, setFilterArray] = useState<Filters[]>([])
+
+
+    const filterProps = {
+        toggleFilters, setToggleFilters, filterArray, setFilterArray
+    }
+
+    useEffect(() => {
+        fetch("/src/data.json")
+        .then( res => res.json())
+        .then( data => setAllCountriesData(data))
+    }, [])
+
     return(
-        <>
-            this is the landing page
-        </>
+        <div className=" h-full flex flex-col items-center  ">
+            <Header/>
+            <Main 
+                allCountriesData={allCountriesData} 
+                filterProps = {filterProps}
+            />
+        </div>
     )
      
 }
