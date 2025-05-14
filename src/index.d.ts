@@ -71,3 +71,10 @@ type RegionalBlocs = {
 type Filters = "africa" | "america" | "asia" | "europe" | "oceania"
 
 type FilterArray = Filters[]
+
+type SearchProps = {
+    searchResults: AllCountriesState
+    setSearchResults: React.Dispatch<React.SetStateAction<AllCountriesState>>
+}
+
+type ToggleMode = "light" | "dark"

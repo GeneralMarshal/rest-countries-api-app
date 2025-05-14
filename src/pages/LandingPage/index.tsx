@@ -1,10 +1,12 @@
-import Header from "./Header"
+import Header from "../../Components/Header"
 import Main from "./Main"
 import { useState, useEffect } from "react"
 
+interface Props {
+    toggleMode: ToggleMode
+}
 
-
-export default function LandingPage(){
+export default function LandingPage({toggleMode}:Props){
     const [allCountriesData, setAllCountriesData] = useState<AllCountriesState>([])
     const [toggleFilters, setToggleFilters] = useState(false)
     const [filterArray, setFilterArray] = useState<Filters[]>([])

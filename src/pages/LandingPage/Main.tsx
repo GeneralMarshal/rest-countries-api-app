@@ -1,5 +1,5 @@
 import CountryCard from "./CountryCard";
-import { IoSearch } from "react-icons/io5";
+import SearchBar from "./SearchBar";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import capitalize from "../../utils/capitalizeText";
 import { useEffect, useState } from "react";
@@ -15,6 +15,10 @@ export default function Main( { filterProps, allCountriesData}: Props){
     const listOfFilter:Filters[] = ["africa", "america" , "asia" , "europe" , "oceania"]
     const [displayCountriesData, setDisplayCountriesData] = useState<AllCountriesState>(allCountriesData)
     const [searchResults, setSearchResults] = useState<AllCountriesState>([])
+
+    const searchProps = {searchResults, setSearchResults}
+
+
     useEffect(()=>{
         setDisplayCountriesData(allCountriesData)
     }, [allCountriesData])
@@ -35,48 +39,12 @@ export default function Main( { filterProps, allCountriesData}: Props){
         setDisplayCountriesData(newCountriesData)
         setFilterArray([type])
     }
-    function filterSearch(e: React.ChangeEvent<HTMLInputElement>){
-        const text = e.target.value
-        let results:AllCountriesState = []
-        if (text.length > 0){
-            results = allCountriesData.filter((country) => country.name.includes(capitalize(text)))
-        } else {
-            results = []
-        }
-        console.log(results)
-        setSearchResults(results)
-        
-    }
+
     return(
         <main className=" w-full max-w-[1300px]   h-full px-10 ">
-            {/* search bar */}
             <div className="flex justify-between mb-12 w-full my-[50px]">
-                <div className="relative flex items-center py-3 w-[400px] h-12 gap-3 px-6 bg-[#ffffff] shadow-lg rounded-lg">
-                    <IoSearch style={{fontSize: "20px"}}/>
-                    <input 
-                        className=" w-full"
-                        type="text" 
-                        placeholder="Search for a country..."
-                        onChange={(e)=> filterSearch(e)}
-                
-                        />
-                        {
-                            searchResults.length > 0 &&
-                            <div className="absolute w-[100%] h-32  bg-[#ffffff] inset-0 top-[100%] mt-2 rounded-lg overflow-y-auto">
-                                {searchResults.map((country) => {
-                                    return (
-                                            <div className=" flex gap-3 items-center h-10  hover:bg-gray-200 cursor-pointer p-2">
-                                                <img src={country.flags.svg} alt="" className="h-[30px]"/>
-                                                <p>{country.name}</p>
-                                            </div>   
-                                       )
-                                })}
-                             </div>
-                            
-                        }
-                        
-                </div>
-
+            {/* search bar */}
+                <SearchBar allCountriesData = {allCountriesData} searchProps = {searchProps}/>
                 {/* filter button */}
                 <div className="relative flex flex-col gap-1 ">
                     <div 

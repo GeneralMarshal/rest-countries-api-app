@@ -8,7 +8,7 @@ export default function Button( props: Props){
 
     return(
         <button 
-            className={`${stylesClass} w-auto py-1.5 md:py-2 px-4 text-sm`}
+            className={`${stylesClass} flex items-center justify-center shadow-[0px_0px_4px_gray] rounded `}
             onClick={onClick}
         >
             {children}
