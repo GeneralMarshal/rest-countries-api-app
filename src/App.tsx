@@ -7,14 +7,16 @@ import LandingPage from './pages/LandingPage'
 import DetailsPage from './pages/DetailsPage'
 
 export default function App() {
- const [toggleMode, setToggleMode] = useState<ToggleModecdm>("light")
+ const [toggleMode, setToggleMode] = useState<ToggleMode>("light")
+
+ const toggleProps = {toggleMode, setToggleMode}
 
   return (
     <>
       <Routes>
-        <Route>
-          <Route path="/" element={<LandingPage toggleMode={toggleMode}/>}></Route>
-          <Route path="/detailspage" element={<DetailsPage toggleMode={toggleMode}/>}></Route>
+        <Route >
+          <Route path="/" element={<LandingPage toggleProps={toggleProps}/>}></Route>
+          <Route path="/detailspage/:code" element={<DetailsPage toggleProps={toggleProps}/>}></Route>
         </Route>
       </Routes>
     </>

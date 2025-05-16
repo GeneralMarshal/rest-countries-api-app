@@ -4,9 +4,14 @@ import capitalize from "../../utils/capitalizeText";
 interface Props {
     allCountriesData: AllCountriesState
     searchProps: SearchProps
+    toggleMode: ToggleMode
+
 }
-export default function SearchBar({allCountriesData, searchProps}:Props){
+export default function SearchBar({allCountriesData, searchProps, toggleMode}:Props){
     const {searchResults, setSearchResults} = searchProps
+
+    const elColor = (toggleMode === "light" ? "#ffffff" : "#2b3945")
+    
      function filterSearch(e: React.ChangeEvent<HTMLInputElement>){
             const text = e.target.value
             let results:AllCountriesState = []
@@ -20,10 +25,16 @@ export default function SearchBar({allCountriesData, searchProps}:Props){
             
         }
     return(
-        <div className="relative flex items-center py-3 w-[400px] h-12 gap-3 px-6 bg-[#ffffff] shadow-lg rounded-lg">
+        <div 
+            className="relative flex items-center py-3 w-[400px] h-12 gap-3 px-6  shadow-lg rounded-lg"
+            style={{
+                background: elColor
+            }}
+        >
                     <IoSearch style={{fontSize: "20px"}}/>
                     <input 
                         className=" w-full"
+                        style={{background: elColor}}
                         type="text" 
                         placeholder="Search for a country..."
                         onChange={(e)=> filterSearch(e)}
@@ -31,7 +42,12 @@ export default function SearchBar({allCountriesData, searchProps}:Props){
                         />
                         {
                             searchResults.length > 0 &&
-                            <div className="absolute w-[100%] h-32  bg-[#ffffff] inset-0 top-[100%] mt-2 rounded-lg overflow-y-auto">
+                            <div 
+                                className="absolute w-[100%] h-32  inset-0 top-[100%] mt-2 rounded-lg overflow-y-auto"
+                                style={{
+                                    background: elColor
+                                }}
+                            >
                                 {searchResults.map((country) => {
                                     return (
                                             <div className=" flex gap-3 items-center h-10  hover:bg-gray-200 cursor-pointer p-2">

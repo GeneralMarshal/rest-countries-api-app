@@ -2,6 +2,8 @@ interface CountriesData {
     name: string
     topLevelDomain: string[]
     alpha2Code: string
+    alpha3Code: string
+    callingCodes: string[]
     capital: string
     altSpellings: string[]
     subregion: string
@@ -68,7 +70,7 @@ type RegionalBlocs = {
     name: string
 }
 
-type Filters = "africa" | "america" | "asia" | "europe" | "oceania"
+type Filters = "africa" | "americas" | "asia" | "europe" | "oceania"
 
 type FilterArray = Filters[]
 
@@ -76,5 +78,8 @@ type SearchProps = {
     searchResults: AllCountriesState
     setSearchResults: React.Dispatch<React.SetStateAction<AllCountriesState>>
 }
-
+type ToggleProps = {
+    toggleMode: ToggleMode
+    setToggleMode: React.Dispatch<React.SetStateAction<ToggleMode>>
+}
 type ToggleMode = "light" | "dark"

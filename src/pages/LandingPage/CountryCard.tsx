@@ -1,9 +1,19 @@
 interface Props{
     countryData: CountriesData
+    toggleMode: ToggleMode
 }
-export default function CountryCard({countryData}: Props){
+export default function CountryCard({countryData, toggleMode}: Props){
+
+
+    const bgColor = (toggleMode === "light" ? "#ffffff" : "#2b3945")
+
     return(
-        <div className=" flex flex-col w-[210px] rounded-lg overflow-hidden shadow-lg">
+        <div 
+            className=" flex flex-col w-[210px] rounded-lg overflow-hidden shadow-lg"
+            style={{
+                background: bgColor
+            }}
+        >
             <div className=" w-full  h-[140px] ">
                 <img 
                     className="h-full w-full object-cover"
@@ -11,7 +21,7 @@ export default function CountryCard({countryData}: Props){
                     alt="" 
                 />
             </div>
-            <div className=" w-full h-[140px] bg-[#ffffff] p-4">
+            <div className=" w-full h-[140px]  p-4">
                 <p className=" font-bold mb-2">
                     {countryData.name}
                 </p>

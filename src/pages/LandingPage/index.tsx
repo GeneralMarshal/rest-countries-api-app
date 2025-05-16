@@ -3,14 +3,17 @@ import Main from "./Main"
 import { useState, useEffect } from "react"
 
 interface Props {
-    toggleMode: ToggleMode
+    toggleProps: ToggleProps
 }
 
-export default function LandingPage({toggleMode}:Props){
+export default function LandingPage({toggleProps}:Props){
+    const{toggleMode} = toggleProps
     const [allCountriesData, setAllCountriesData] = useState<AllCountriesState>([])
     const [toggleFilters, setToggleFilters] = useState(false)
     const [filterArray, setFilterArray] = useState<Filters[]>([])
 
+    const bgColor = (toggleMode === "light" ? "#f4ecec" : "#202c37")
+    const textColor = (toggleMode === "light" ? "black" : "#ffffff")
 
     const filterProps = {
         toggleFilters, setToggleFilters, filterArray, setFilterArray
@@ -23,11 +26,17 @@ export default function LandingPage({toggleMode}:Props){
     }, [])
 
     return(
-        <div className=" h-full flex flex-col items-center  ">
-            <Header/>
+        <div 
+            className=" h-full flex flex-col items-center "
+            style={{background: bgColor, color: textColor}}
+        >
+            <Header toggleProps={toggleProps}/>
             <Main 
                 allCountriesData={allCountriesData} 
                 filterProps = {filterProps}
+                toggleProps = {toggleProps}
+                bgColor = {bgColor}
+                
             />
         </div>
     )
