@@ -1,9 +1,9 @@
 import CountryCard from "./CountryCard";
 import SearchBar from "./SearchBar";
-import { MdKeyboardArrowDown } from "react-icons/md";
 import capitalize from "../../utils/capitalizeText";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Filter from "./Filter";
 
 interface Props {
     filterProps: FilterProps
@@ -14,10 +14,10 @@ interface Props {
 
 
 export default function Main( { filterProps, allCountriesData, toggleProps, bgColor}: Props){
-    const { toggleFilters, setToggleFilters, filterArray, setFilterArray} = filterProps
+    const { setFilterArray} = filterProps
     const {toggleMode} = toggleProps
 
-    const listOfFilter:Filters[] = ["africa", "americas" , "asia" , "europe" , "oceania"]
+    const listOfFilters:Filters[] = ["africa", "americas" , "asia" , "europe" , "oceania"]
     const [displayCountriesData, setDisplayCountriesData] = useState<AllCountriesState>(allCountriesData)
     const [searchResults, setSearchResults] = useState<AllCountriesState>([])
 
@@ -50,59 +50,12 @@ export default function Main( { filterProps, allCountriesData, toggleProps, bgCo
         <main  
             className=" w-full max-w-[1300px] h-auto px-10 " 
         >
-            <div className="flex justify-between mb-12 w-full my-[50px]">
+            <div className="flex flex-col sm:flex-row gap-3 justify-between mb-12 w-full my-[50px]">
             {/* search bar */}
                 <SearchBar allCountriesData = {allCountriesData} searchProps = {searchProps} toggleMode={toggleMode} />
                 {/* filter button */}
-                <div 
-                    className="relative flex flex-col gap-1 "
-                    
-                >
-                    <div 
-                        className=" flex text-sm items-center px-6 py-4 gap-8  shadow-md  rounded-lg cursor-pointer"
-                        style={{
-                            background: elColor,
-                        }}
-                        onClick={()=>{
-                            setToggleFilters(prev => !prev)
-                        }}
-                    >
-                        Filter by Region
-                        <MdKeyboardArrowDown />
-                    </div>
-                    {/* the filter drop down */}
-                    { toggleFilters && <div 
-                        className="absolute w-full top-[100%] mt-2 z-10 shadow-lg  rounded-lg"
-                        
-                        
-                    >
-                        <ul 
-                            className=" leading-8  cursor-pointer"
-                            style={{background: bgColor}}
-                            
-                        >
-                            
-                            {
-                                listOfFilter.map((option, index) =>{
-                                    return (
-                                        <li 
-                                            key={index}
-                                            onClick={()=>handleFiltersArray(option)} 
-                                            className=" px-6 py-.5 pt-2 hover:bg-gray-200" 
-                                            // style={{backgroundColor: filterArray.includes(option) ? "#e5e7eb" : "#ffffff" }}
-                                            style={{background: elColor}}
-                                        >
-                                            {capitalize(option)}
-                                        </li>
-                                    )
-                                })
-                            }
-
-                        </ul>
-                    </div>}
-                </div>
+                <Filter filterProps={filterProps} elColor={elColor} bgColor={bgColor} listOfFilters={listOfFilters} handleFiltersArray={handleFiltersArray}/>
             </div>
-
             <section className=" w-full flex justify-center ">
                 <div className="country-grid w-full gap-8 ] " >
                     {    

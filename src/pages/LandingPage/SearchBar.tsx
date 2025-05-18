@@ -1,5 +1,6 @@
 import { IoSearch } from "react-icons/io5";
 import capitalize from "../../utils/capitalizeText";
+import { Link } from "react-router-dom";
 
 interface Props {
     allCountriesData: AllCountriesState
@@ -26,7 +27,7 @@ export default function SearchBar({allCountriesData, searchProps, toggleMode}:Pr
         }
     return(
         <div 
-            className="relative flex items-center py-3 w-[400px] h-12 gap-3 px-6  shadow-lg rounded-lg"
+            className="relative flex items-center py-3 sm:w-[400px] w-[100%] h-12 gap-3 px-6  shadow-lg rounded-lg"
             style={{
                 background: elColor
             }}
@@ -50,10 +51,13 @@ export default function SearchBar({allCountriesData, searchProps, toggleMode}:Pr
                             >
                                 {searchResults.map((country) => {
                                     return (
+                                        <Link to={`/detailspage/${country.callingCodes}`}>
                                             <div className=" flex gap-3 items-center h-10  hover:bg-gray-200 cursor-pointer p-2">
                                                 <img src={country.flags.svg} alt="" className="h-[20px] w-[30px]"/>
                                                 <p>{country.name}</p>
-                                            </div>   
+                                            </div>
+                                        </Link>
+                                               
                                        )
                                 })}
                              </div>

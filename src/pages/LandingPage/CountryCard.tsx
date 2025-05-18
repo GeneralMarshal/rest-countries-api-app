@@ -28,7 +28,7 @@ export default function CountryCard({countryData, toggleMode}: Props){
                 <div className="text-xs leading-5">
                     <p>
                         <span className=" font-semibold">Population</span>: {
-                            countryData.population
+                            countryData.population.toLocaleString()
                         }
                     </p>
                     <p>

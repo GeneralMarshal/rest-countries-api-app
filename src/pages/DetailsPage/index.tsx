@@ -24,7 +24,7 @@ export default function DetailsPage({toggleProps}:Props){
 
     return(
         <div 
-            className="h-full flex flex-col items-center "
+            className="h-full min-h-[100vh] flex flex-col items-center "
             style={{
                 background: bgColor,
                 color: textColor

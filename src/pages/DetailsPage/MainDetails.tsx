@@ -1,6 +1,6 @@
 import Button from "../../Components/Button"
 import { IoIosArrowRoundBack } from "react-icons/io";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import capitalize from "../../utils/capitalizeText";
 interface Props{
     toggleProps: ToggleProps
@@ -22,7 +22,7 @@ export default function MainDetails({toggleProps,allCountriesData}: Props){
 
     const currenciesArray:string[] = []
 
-    country?.languages?.map((currencyObject) => {
+    country?.currencies?.map((currencyObject) => {
         currenciesArray.push(currencyObject.name)
         
     })
@@ -37,31 +37,33 @@ export default function MainDetails({toggleProps,allCountriesData}: Props){
     const languages = languageArray.join(", ")
 
     const borderCountriesCodeArray = country?.borders
-    const borderCountries:string[] = []
+    const borderCountries:CountriesData[] = []
     borderCountriesCodeArray?.map((code)=>{
        const borderCountry =  allCountriesData.find((country) => country.alpha3Code === code)
        if(borderCountry)
-       borderCountries.push(borderCountry?.name)
+       borderCountries.push(borderCountry)
     })
-    console.log(borderCountries)
 
     return(
         <main  
             className=" w-full max-w-[1300px] h-full px-10 "
 
         >
-            <Button toggleMode={toggleMode} stylesClass="  gap-1.5 mt-[50px] px-6 text-sm py-1.5">
-                <IoIosArrowRoundBack />
-                Back
-            </Button>
-            <div className=" flex  gap-16 mt-12 ">
-                <img src={country?.flags.svg} alt="" className=" w-[400px] h-[266px]"/>
+            <Link to={`/`}>
+                <Button toggleMode={toggleMode} stylesClass="  gap-1.5 mt-[50px] px-6 text-sm py-1.5">
+                    <IoIosArrowRoundBack />
+                    Back
+                </Button>
+            </Link>
+           
+            <div className=" flex flex-wrap w-full  gap-16 mt-12 ">
+                <img src={country?.flags.svg} alt="" className=" w-full sm:w-[400px] h-auto sm:h-[266px]"/>
                 <div className=" flex flex-col my-8" >
                     <p className=" text-xl font-bold">{name}</p>
                     <div className="flex mt-3 mb-6 text-xs gap-3 leading-6">
                         <ul className=" ">
                             <li className=""><span className=" font-semibold">Native Name: </span>{nativeName}</li>
-                            <li className=""><span className=" font-semibold">Population: </span>{population}</li>
+                            <li className=""><span className=" font-semibold">Population: </span>{population?.toLocaleString()}</li>
                             <li className=""><span className=" font-semibold">Region: </span>{region}</li>
                             <li className=""><span className=" font-semibold">Sub Region: </span>{subRegion}</li>
                             <li className=""><span className=" font-semibold">Capital: </span>{capital}</li>
@@ -78,7 +80,11 @@ export default function MainDetails({toggleProps,allCountriesData}: Props){
                         <p className=" text-xs font-semibold">Border Countries: </p>
                         {
                             borderCountries.map((country)=>{
-                                return (<Button toggleMode={toggleMode} stylesClass="   text-xs py-1 w-20">{country}</Button>)
+                                return (
+                                    <Link to={`/detailspage/${country.callingCodes}`}>
+                                        <Button toggleMode={toggleMode} stylesClass=" cursor-pointer  text-xs py-1 w-20">{country.name}</Button>
+                                    </Link>
+                                )
                        
                             })
                         }

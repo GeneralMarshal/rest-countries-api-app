@@ -1,5 +1,6 @@
 import { IoMoonOutline } from "react-icons/io5";
 import { IoMoon } from "react-icons/io5";
+import { useState } from "react";
 interface Props {
     toggleProps: ToggleProps
   
@@ -16,8 +17,8 @@ export default function Header({toggleProps}:Props){
                 color: textColor
             }}
         >
-            <div className="w-full  max-w-[1300px] flex items-center px-10 justify-between">
-                <p className=" font-bold text-2xl">Where in the world?</p>
+            <div className="w-full  max-w-[1300px] flex items-center px-10 justify-between text-md sm:text-2xl">
+                <p className=" font-bold ">Where in the world?</p>
                 <span 
                     className=" flex gap-2 items-center font-semibold cursor-pointer"
                     onClick={ () =>{
@@ -31,7 +32,13 @@ export default function Header({toggleProps}:Props){
                 >
                     {
                         toggleMode === "light" ? <IoMoonOutline style={{ fontSize:"20px"}}/> :
-                        <IoMoon style={{ fontSize:"20px", color: "#ffffff"}}/>
+                        <span>
+                            <IoMoon style={{ 
+                                fontSize: "100%", 
+                                color: "#ffffff"
+                                }}/>
+                        </span>
+                        
                     }
                     Dark Mode
                 </span>
